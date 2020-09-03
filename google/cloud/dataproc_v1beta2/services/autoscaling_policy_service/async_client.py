@@ -31,7 +31,7 @@ from google.oauth2 import service_account  # type: ignore
 from google.cloud.dataproc_v1beta2.services.autoscaling_policy_service import pagers
 from google.cloud.dataproc_v1beta2.types import autoscaling_policies
 
-from .transports.base import AutoscalingPolicyServiceTransport
+from .transports.base import AutoscalingPolicyServiceTransport, DEFAULT_CLIENT_INFO
 from .transports.grpc_asyncio import AutoscalingPolicyServiceGrpcAsyncIOTransport
 from .client import AutoscalingPolicyServiceClient
 
@@ -64,6 +64,7 @@ class AutoscalingPolicyServiceAsyncClient:
         credentials: credentials.Credentials = None,
         transport: Union[str, AutoscalingPolicyServiceTransport] = "grpc_asyncio",
         client_options: ClientOptions = None,
+        client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
     ) -> None:
         """Instantiate the autoscaling policy service client.
 
@@ -96,7 +97,10 @@ class AutoscalingPolicyServiceAsyncClient:
         """
 
         self._client = AutoscalingPolicyServiceClient(
-            credentials=credentials, transport=transport, client_options=client_options,
+            credentials=credentials,
+            transport=transport,
+            client_options=client_options,
+            client_info=client_info,
         )
 
     async def create_autoscaling_policy(
@@ -174,7 +178,7 @@ class AutoscalingPolicyServiceAsyncClient:
         rpc = gapic_v1.method_async.wrap_method(
             self._client._transport.create_autoscaling_policy,
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -256,7 +260,7 @@ class AutoscalingPolicyServiceAsyncClient:
                 ),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -347,7 +351,7 @@ class AutoscalingPolicyServiceAsyncClient:
                 ),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -439,7 +443,7 @@ class AutoscalingPolicyServiceAsyncClient:
                 ),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -526,7 +530,7 @@ class AutoscalingPolicyServiceAsyncClient:
         rpc = gapic_v1.method_async.wrap_method(
             self._client._transport.delete_autoscaling_policy,
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -542,11 +546,11 @@ class AutoscalingPolicyServiceAsyncClient:
 
 
 try:
-    _client_info = gapic_v1.client_info.ClientInfo(
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution("google-cloud-dataproc",).version,
     )
 except pkg_resources.DistributionNotFound:
-    _client_info = gapic_v1.client_info.ClientInfo()
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo()
 
 
 __all__ = ("AutoscalingPolicyServiceAsyncClient",)

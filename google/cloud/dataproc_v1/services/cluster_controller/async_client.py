@@ -36,7 +36,7 @@ from google.cloud.dataproc_v1.types import operations
 from google.protobuf import empty_pb2 as empty  # type: ignore
 from google.protobuf import field_mask_pb2 as field_mask  # type: ignore
 
-from .transports.base import ClusterControllerTransport
+from .transports.base import ClusterControllerTransport, DEFAULT_CLIENT_INFO
 from .transports.grpc_asyncio import ClusterControllerGrpcAsyncIOTransport
 from .client import ClusterControllerClient
 
@@ -64,6 +64,7 @@ class ClusterControllerAsyncClient:
         credentials: credentials.Credentials = None,
         transport: Union[str, ClusterControllerTransport] = "grpc_asyncio",
         client_options: ClientOptions = None,
+        client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
     ) -> None:
         """Instantiate the cluster controller client.
 
@@ -96,7 +97,10 @@ class ClusterControllerAsyncClient:
         """
 
         self._client = ClusterControllerClient(
-            credentials=credentials, transport=transport, client_options=client_options,
+            credentials=credentials,
+            transport=transport,
+            client_options=client_options,
+            client_info=client_info,
         )
 
     async def create_cluster(
@@ -185,7 +189,7 @@ class ClusterControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=300.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -366,7 +370,7 @@ class ClusterControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=300.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -480,7 +484,7 @@ class ClusterControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=300.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -577,13 +581,13 @@ class ClusterControllerAsyncClient:
                 maximum=60.0,
                 multiplier=1.3,
                 predicate=retries.if_exception_type(
-                    exceptions.InternalServerError,
-                    exceptions.ServiceUnavailable,
                     exceptions.DeadlineExceeded,
+                    exceptions.ServiceUnavailable,
+                    exceptions.InternalServerError,
                 ),
             ),
             default_timeout=300.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -696,13 +700,13 @@ class ClusterControllerAsyncClient:
                 maximum=60.0,
                 multiplier=1.3,
                 predicate=retries.if_exception_type(
-                    exceptions.InternalServerError,
-                    exceptions.ServiceUnavailable,
                     exceptions.DeadlineExceeded,
+                    exceptions.ServiceUnavailable,
+                    exceptions.InternalServerError,
                 ),
             ),
             default_timeout=300.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -807,7 +811,7 @@ class ClusterControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=300.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -826,11 +830,11 @@ class ClusterControllerAsyncClient:
 
 
 try:
-    _client_info = gapic_v1.client_info.ClientInfo(
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution("google-cloud-dataproc",).version,
     )
 except pkg_resources.DistributionNotFound:
-    _client_info = gapic_v1.client_info.ClientInfo()
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo()
 
 
 __all__ = ("ClusterControllerAsyncClient",)

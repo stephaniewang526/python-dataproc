@@ -178,6 +178,7 @@ def test_workflow_template_service_client_client_options(
             api_mtls_endpoint="squid.clam.whelk",
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
     # Check the case api_endpoint is not provided and GOOGLE_API_USE_MTLS is
@@ -194,6 +195,7 @@ def test_workflow_template_service_client_client_options(
                 api_mtls_endpoint=client.DEFAULT_ENDPOINT,
                 client_cert_source=None,
                 quota_project_id=None,
+                client_info=transports.base.DEFAULT_CLIENT_INFO,
             )
 
     # Check the case api_endpoint is not provided and GOOGLE_API_USE_MTLS is
@@ -210,6 +212,7 @@ def test_workflow_template_service_client_client_options(
                 api_mtls_endpoint=client.DEFAULT_MTLS_ENDPOINT,
                 client_cert_source=None,
                 quota_project_id=None,
+                client_info=transports.base.DEFAULT_CLIENT_INFO,
             )
 
     # Check the case api_endpoint is not provided, GOOGLE_API_USE_MTLS is
@@ -229,6 +232,7 @@ def test_workflow_template_service_client_client_options(
                 api_mtls_endpoint=client.DEFAULT_MTLS_ENDPOINT,
                 client_cert_source=client_cert_source_callback,
                 quota_project_id=None,
+                client_info=transports.base.DEFAULT_CLIENT_INFO,
             )
 
     # Check the case api_endpoint is not provided, GOOGLE_API_USE_MTLS is
@@ -249,6 +253,7 @@ def test_workflow_template_service_client_client_options(
                     api_mtls_endpoint=client.DEFAULT_MTLS_ENDPOINT,
                     client_cert_source=None,
                     quota_project_id=None,
+                    client_info=transports.base.DEFAULT_CLIENT_INFO,
                 )
 
     # Check the case api_endpoint is not provided, GOOGLE_API_USE_MTLS is
@@ -269,6 +274,7 @@ def test_workflow_template_service_client_client_options(
                     api_mtls_endpoint=client.DEFAULT_ENDPOINT,
                     client_cert_source=None,
                     quota_project_id=None,
+                    client_info=transports.base.DEFAULT_CLIENT_INFO,
                 )
 
     # Check the case api_endpoint is not provided and GOOGLE_API_USE_MTLS has
@@ -290,6 +296,7 @@ def test_workflow_template_service_client_client_options(
             api_mtls_endpoint=client.DEFAULT_ENDPOINT,
             client_cert_source=None,
             quota_project_id="octopus",
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -324,6 +331,7 @@ def test_workflow_template_service_client_client_options_scopes(
             api_mtls_endpoint=client.DEFAULT_ENDPOINT,
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -358,6 +366,7 @@ def test_workflow_template_service_client_client_options_credentials_file(
             api_mtls_endpoint=client.DEFAULT_ENDPOINT,
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -377,6 +386,7 @@ def test_workflow_template_service_client_client_options_from_dict():
             api_mtls_endpoint="squid.clam.whelk",
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -1794,8 +1804,8 @@ def test_list_workflow_templates_pages():
             RuntimeError,
         )
         pages = list(client.list_workflow_templates(request={}).pages)
-        for page, token in zip(pages, ["abc", "def", "ghi", ""]):
-            assert page.raw_page.next_page_token == token
+        for page_, token in zip(pages, ["abc", "def", "ghi", ""]):
+            assert page_.raw_page.next_page_token == token
 
 
 @pytest.mark.asyncio
@@ -1885,10 +1895,10 @@ async def test_list_workflow_templates_async_pages():
             RuntimeError,
         )
         pages = []
-        async for page in (await client.list_workflow_templates(request={})).pages:
-            pages.append(page)
-        for page, token in zip(pages, ["abc", "def", "ghi", ""]):
-            assert page.raw_page.next_page_token == token
+        async for page_ in (await client.list_workflow_templates(request={})).pages:
+            pages.append(page_)
+        for page_, token in zip(pages, ["abc", "def", "ghi", ""]):
+            assert page_.raw_page.next_page_token == token
 
 
 def test_delete_workflow_template(
@@ -2486,3 +2496,24 @@ def test_parse_workflow_template_path():
     # Check that the path construction is reversible.
     actual = WorkflowTemplateServiceClient.parse_workflow_template_path(path)
     assert expected == actual
+
+
+def test_client_withDEFAULT_CLIENT_INFO():
+    client_info = gapic_v1.client_info.ClientInfo()
+
+    with mock.patch.object(
+        transports.WorkflowTemplateServiceTransport, "_prep_wrapped_messages"
+    ) as prep:
+        client = WorkflowTemplateServiceClient(
+            credentials=credentials.AnonymousCredentials(), client_info=client_info,
+        )
+        prep.assert_called_once_with(client_info)
+
+    with mock.patch.object(
+        transports.WorkflowTemplateServiceTransport, "_prep_wrapped_messages"
+    ) as prep:
+        transport_class = WorkflowTemplateServiceClient.get_transport_class()
+        transport = transport_class(
+            credentials=credentials.AnonymousCredentials(), client_info=client_info,
+        )
+        prep.assert_called_once_with(client_info)

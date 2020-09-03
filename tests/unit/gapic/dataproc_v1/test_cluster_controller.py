@@ -171,6 +171,7 @@ def test_cluster_controller_client_client_options(
             api_mtls_endpoint="squid.clam.whelk",
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
     # Check the case api_endpoint is not provided and GOOGLE_API_USE_MTLS is
@@ -187,6 +188,7 @@ def test_cluster_controller_client_client_options(
                 api_mtls_endpoint=client.DEFAULT_ENDPOINT,
                 client_cert_source=None,
                 quota_project_id=None,
+                client_info=transports.base.DEFAULT_CLIENT_INFO,
             )
 
     # Check the case api_endpoint is not provided and GOOGLE_API_USE_MTLS is
@@ -203,6 +205,7 @@ def test_cluster_controller_client_client_options(
                 api_mtls_endpoint=client.DEFAULT_MTLS_ENDPOINT,
                 client_cert_source=None,
                 quota_project_id=None,
+                client_info=transports.base.DEFAULT_CLIENT_INFO,
             )
 
     # Check the case api_endpoint is not provided, GOOGLE_API_USE_MTLS is
@@ -222,6 +225,7 @@ def test_cluster_controller_client_client_options(
                 api_mtls_endpoint=client.DEFAULT_MTLS_ENDPOINT,
                 client_cert_source=client_cert_source_callback,
                 quota_project_id=None,
+                client_info=transports.base.DEFAULT_CLIENT_INFO,
             )
 
     # Check the case api_endpoint is not provided, GOOGLE_API_USE_MTLS is
@@ -242,6 +246,7 @@ def test_cluster_controller_client_client_options(
                     api_mtls_endpoint=client.DEFAULT_MTLS_ENDPOINT,
                     client_cert_source=None,
                     quota_project_id=None,
+                    client_info=transports.base.DEFAULT_CLIENT_INFO,
                 )
 
     # Check the case api_endpoint is not provided, GOOGLE_API_USE_MTLS is
@@ -262,6 +267,7 @@ def test_cluster_controller_client_client_options(
                     api_mtls_endpoint=client.DEFAULT_ENDPOINT,
                     client_cert_source=None,
                     quota_project_id=None,
+                    client_info=transports.base.DEFAULT_CLIENT_INFO,
                 )
 
     # Check the case api_endpoint is not provided and GOOGLE_API_USE_MTLS has
@@ -283,6 +289,7 @@ def test_cluster_controller_client_client_options(
             api_mtls_endpoint=client.DEFAULT_ENDPOINT,
             client_cert_source=None,
             quota_project_id="octopus",
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -313,6 +320,7 @@ def test_cluster_controller_client_client_options_scopes(
             api_mtls_endpoint=client.DEFAULT_ENDPOINT,
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -343,6 +351,7 @@ def test_cluster_controller_client_client_options_credentials_file(
             api_mtls_endpoint=client.DEFAULT_ENDPOINT,
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -362,6 +371,7 @@ def test_cluster_controller_client_client_options_from_dict():
             api_mtls_endpoint="squid.clam.whelk",
             client_cert_source=None,
             quota_project_id=None,
+            client_info=transports.base.DEFAULT_CLIENT_INFO,
         )
 
 
@@ -1241,8 +1251,8 @@ def test_list_clusters_pages():
             RuntimeError,
         )
         pages = list(client.list_clusters(request={}).pages)
-        for page, token in zip(pages, ["abc", "def", "ghi", ""]):
-            assert page.raw_page.next_page_token == token
+        for page_, token in zip(pages, ["abc", "def", "ghi", ""]):
+            assert page_.raw_page.next_page_token == token
 
 
 @pytest.mark.asyncio
@@ -1306,10 +1316,10 @@ async def test_list_clusters_async_pages():
             RuntimeError,
         )
         pages = []
-        async for page in (await client.list_clusters(request={})).pages:
-            pages.append(page)
-        for page, token in zip(pages, ["abc", "def", "ghi", ""]):
-            assert page.raw_page.next_page_token == token
+        async for page_ in (await client.list_clusters(request={})).pages:
+            pages.append(page_)
+        for page_, token in zip(pages, ["abc", "def", "ghi", ""]):
+            assert page_.raw_page.next_page_token == token
 
 
 def test_diagnose_cluster(
@@ -1839,3 +1849,24 @@ def test_cluster_controller_grpc_lro_async_client():
 
     # Ensure that subsequent calls to the property send the exact same object.
     assert transport.operations_client is transport.operations_client
+
+
+def test_client_withDEFAULT_CLIENT_INFO():
+    client_info = gapic_v1.client_info.ClientInfo()
+
+    with mock.patch.object(
+        transports.ClusterControllerTransport, "_prep_wrapped_messages"
+    ) as prep:
+        client = ClusterControllerClient(
+            credentials=credentials.AnonymousCredentials(), client_info=client_info,
+        )
+        prep.assert_called_once_with(client_info)
+
+    with mock.patch.object(
+        transports.ClusterControllerTransport, "_prep_wrapped_messages"
+    ) as prep:
+        transport_class = ClusterControllerClient.get_transport_class()
+        transport = transport_class(
+            credentials=credentials.AnonymousCredentials(), client_info=client_info,
+        )
+        prep.assert_called_once_with(client_info)

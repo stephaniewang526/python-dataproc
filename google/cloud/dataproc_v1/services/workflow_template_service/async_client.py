@@ -35,7 +35,7 @@ from google.cloud.dataproc_v1.types import workflow_templates
 from google.protobuf import empty_pb2 as empty  # type: ignore
 from google.protobuf import timestamp_pb2 as timestamp  # type: ignore
 
-from .transports.base import WorkflowTemplateServiceTransport
+from .transports.base import WorkflowTemplateServiceTransport, DEFAULT_CLIENT_INFO
 from .transports.grpc_asyncio import WorkflowTemplateServiceGrpcAsyncIOTransport
 from .client import WorkflowTemplateServiceClient
 
@@ -68,6 +68,7 @@ class WorkflowTemplateServiceAsyncClient:
         credentials: credentials.Credentials = None,
         transport: Union[str, WorkflowTemplateServiceTransport] = "grpc_asyncio",
         client_options: ClientOptions = None,
+        client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
     ) -> None:
         """Instantiate the workflow template service client.
 
@@ -100,7 +101,10 @@ class WorkflowTemplateServiceAsyncClient:
         """
 
         self._client = WorkflowTemplateServiceClient(
-            credentials=credentials, transport=transport, client_options=client_options,
+            credentials=credentials,
+            transport=transport,
+            client_options=client_options,
+            client_info=client_info,
         )
 
     async def create_workflow_template(
@@ -184,7 +188,7 @@ class WorkflowTemplateServiceAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -272,13 +276,13 @@ class WorkflowTemplateServiceAsyncClient:
                 maximum=60.0,
                 multiplier=1.3,
                 predicate=retries.if_exception_type(
-                    exceptions.InternalServerError,
-                    exceptions.ServiceUnavailable,
                     exceptions.DeadlineExceeded,
+                    exceptions.ServiceUnavailable,
+                    exceptions.InternalServerError,
                 ),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -416,7 +420,7 @@ class WorkflowTemplateServiceAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -562,7 +566,7 @@ class WorkflowTemplateServiceAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -651,7 +655,7 @@ class WorkflowTemplateServiceAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -742,13 +746,13 @@ class WorkflowTemplateServiceAsyncClient:
                 maximum=60.0,
                 multiplier=1.3,
                 predicate=retries.if_exception_type(
-                    exceptions.InternalServerError,
-                    exceptions.ServiceUnavailable,
                     exceptions.DeadlineExceeded,
+                    exceptions.ServiceUnavailable,
+                    exceptions.InternalServerError,
                 ),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -839,7 +843,7 @@ class WorkflowTemplateServiceAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=600.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Certain fields should be provided within the metadata header;
@@ -855,11 +859,11 @@ class WorkflowTemplateServiceAsyncClient:
 
 
 try:
-    _client_info = gapic_v1.client_info.ClientInfo(
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution("google-cloud-dataproc",).version,
     )
 except pkg_resources.DistributionNotFound:
-    _client_info = gapic_v1.client_info.ClientInfo()
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo()
 
 
 __all__ = ("WorkflowTemplateServiceAsyncClient",)

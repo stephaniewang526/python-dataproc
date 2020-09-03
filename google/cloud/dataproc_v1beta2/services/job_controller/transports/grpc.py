@@ -19,6 +19,7 @@ from typing import Callable, Dict, Optional, Sequence, Tuple
 
 from google.api_core import grpc_helpers  # type: ignore
 from google.api_core import operations_v1  # type: ignore
+from google.api_core import gapic_v1  # type: ignore
 from google import auth  # type: ignore
 from google.auth import credentials  # type: ignore
 from google.auth.transport.grpc import SslCredentials  # type: ignore
@@ -30,7 +31,7 @@ from google.cloud.dataproc_v1beta2.types import jobs
 from google.longrunning import operations_pb2 as operations  # type: ignore
 from google.protobuf import empty_pb2 as empty  # type: ignore
 
-from .base import JobControllerTransport
+from .base import JobControllerTransport, DEFAULT_CLIENT_INFO
 
 
 class JobControllerGrpcTransport(JobControllerTransport):
@@ -58,7 +59,8 @@ class JobControllerGrpcTransport(JobControllerTransport):
         channel: grpc.Channel = None,
         api_mtls_endpoint: str = None,
         client_cert_source: Callable[[], Tuple[bytes, bytes]] = None,
-        quota_project_id: Optional[str] = None
+        quota_project_id: Optional[str] = None,
+        client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
     ) -> None:
         """Instantiate the transport.
 
@@ -87,6 +89,11 @@ class JobControllerGrpcTransport(JobControllerTransport):
                 is None.
             quota_project_id (Optional[str]): An optional project to use for billing
                 and quota.
+            client_info (google.api_core.gapic_v1.client_info.ClientInfo):	
+                The client info used to send a user-agent string along with	
+                API requests. If ``None``, then default info will be used.	
+                Generally, you only need to set this if you're developing	
+                your own client library.
 
         Raises:
           google.auth.exceptions.MutualTLSChannelError: If mutual TLS transport
@@ -142,6 +149,7 @@ class JobControllerGrpcTransport(JobControllerTransport):
             credentials_file=credentials_file,
             scopes=scopes or self.AUTH_SCOPES,
             quota_project_id=quota_project_id,
+            client_info=client_info,
         )
 
     @classmethod
@@ -152,7 +160,7 @@ class JobControllerGrpcTransport(JobControllerTransport):
         credentials_file: str = None,
         scopes: Optional[Sequence[str]] = None,
         quota_project_id: Optional[str] = None,
-        **kwargs
+        **kwargs,
     ) -> grpc.Channel:
         """Create and return a gRPC channel object.
         Args:
@@ -186,7 +194,7 @@ class JobControllerGrpcTransport(JobControllerTransport):
             credentials_file=credentials_file,
             scopes=scopes,
             quota_project_id=quota_project_id,
-            **kwargs
+            **kwargs,
         )
 
     @property

@@ -33,7 +33,7 @@ from google.api_core import operation_async
 from google.cloud.dataproc_v1.services.job_controller import pagers
 from google.cloud.dataproc_v1.types import jobs
 
-from .transports.base import JobControllerTransport
+from .transports.base import JobControllerTransport, DEFAULT_CLIENT_INFO
 from .transports.grpc_asyncio import JobControllerGrpcAsyncIOTransport
 from .client import JobControllerClient
 
@@ -59,6 +59,7 @@ class JobControllerAsyncClient:
         credentials: credentials.Credentials = None,
         transport: Union[str, JobControllerTransport] = "grpc_asyncio",
         client_options: ClientOptions = None,
+        client_info: gapic_v1.client_info.ClientInfo = DEFAULT_CLIENT_INFO,
     ) -> None:
         """Instantiate the job controller client.
 
@@ -91,7 +92,10 @@ class JobControllerAsyncClient:
         """
 
         self._client = JobControllerClient(
-            credentials=credentials, transport=transport, client_options=client_options,
+            credentials=credentials,
+            transport=transport,
+            client_options=client_options,
+            client_info=client_info,
         )
 
     async def submit_job(
@@ -171,7 +175,7 @@ class JobControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=900.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -261,7 +265,7 @@ class JobControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=900.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -355,13 +359,13 @@ class JobControllerAsyncClient:
                 maximum=60.0,
                 multiplier=1.3,
                 predicate=retries.if_exception_type(
-                    exceptions.InternalServerError,
-                    exceptions.ServiceUnavailable,
                     exceptions.DeadlineExceeded,
+                    exceptions.ServiceUnavailable,
+                    exceptions.InternalServerError,
                 ),
             ),
             default_timeout=900.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -465,13 +469,13 @@ class JobControllerAsyncClient:
                 maximum=60.0,
                 multiplier=1.3,
                 predicate=retries.if_exception_type(
-                    exceptions.InternalServerError,
-                    exceptions.ServiceUnavailable,
                     exceptions.DeadlineExceeded,
+                    exceptions.ServiceUnavailable,
+                    exceptions.InternalServerError,
                 ),
             ),
             default_timeout=900.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -525,7 +529,7 @@ class JobControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=900.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -613,13 +617,13 @@ class JobControllerAsyncClient:
                 maximum=60.0,
                 multiplier=1.3,
                 predicate=retries.if_exception_type(
-                    exceptions.InternalServerError,
-                    exceptions.ServiceUnavailable,
                     exceptions.DeadlineExceeded,
+                    exceptions.ServiceUnavailable,
+                    exceptions.InternalServerError,
                 ),
             ),
             default_timeout=900.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -702,7 +706,7 @@ class JobControllerAsyncClient:
                 predicate=retries.if_exception_type(exceptions.ServiceUnavailable,),
             ),
             default_timeout=900.0,
-            client_info=_client_info,
+            client_info=DEFAULT_CLIENT_INFO,
         )
 
         # Send the request.
@@ -712,11 +716,11 @@ class JobControllerAsyncClient:
 
 
 try:
-    _client_info = gapic_v1.client_info.ClientInfo(
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo(
         gapic_version=pkg_resources.get_distribution("google-cloud-dataproc",).version,
     )
 except pkg_resources.DistributionNotFound:
-    _client_info = gapic_v1.client_info.ClientInfo()
+    DEFAULT_CLIENT_INFO = gapic_v1.client_info.ClientInfo()
 
 
 __all__ = ("JobControllerAsyncClient",)
